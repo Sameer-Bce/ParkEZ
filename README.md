@@ -1,2 +1,53 @@
-# ParkEZ
-A full stack parking lot management app built using python, Flask , Flask-SQLAlchemy , HTML and CSS
+# ParkEZ - Vehicle Parking Management System
+
+## Overview
+ParkEZ is a Flask-based web application for managing vehicle parking lots, spots, and bookings. It supports user registration/login, admin management of lots and spots, booking/releasing spots, and viewing parking statistics.
+
+## Requirements
+- Python 3.x
+- Flask
+- Flask-SQLAlchemy
+
+## Setup Instructions
+
+1. **Clone or Download the Project**
+   - Place all files in a folder (e.g., `Vehicle parking management`).
+
+2. **Install Dependencies**
+   Open your terminal in the project folder and run:
+   ```
+   pip install flask flask_sqlalchemy
+   ```
+
+3. **Initialize the Database**
+   - The database (`parking.db`) will be created automatically when you run the app for the first time.
+
+4. **Run the Application**
+   ```
+   python app.py
+   ```
+   - The app will start on `http://localhost:5000/`.
+
+5. **Access the Application**
+   - Open your browser and go to `http://localhost:5000/`.
+   - Register as a user or log in as admin (`username: admin`, `password: admin`).
+
+## Project Structure
+
+- `app.py` — Main application and controllers (routes).
+- `models.py` — Database models.
+- `templates/` — HTML templates for all pages.
+- `static/` — Static files (images, CSS).
+
+## Features
+
+- User registration and login
+- Admin dashboard for managing lots and viewing stats
+- Book/release parking spots (multiple bookings allowed)
+- View statistics of lots, spots, and bookings
+
+## Notes
+
+- Default admin credentials: `admin` / `admin`
+- All data is stored in `parking.db` (SQLite)
+- For custom background images, place them in the `static` folder and update the path in `base.html
