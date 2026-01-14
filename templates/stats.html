@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+
+        
+<h3 >Statistics:</h3>
+<ul>
+    <li>Total Parking Lots: {{ total_lots }}</li>
+    <li>Total Parking Spots: {{ total_spots }}</li>
+    <li>Occupied Spots: {{ occupied_spots }}</li>
+    <li>Unoccupied Spots: {{ unoccupied_spots }}</li>
+</ul>
+
+
+
+<style>
+.stat-bar {
+  width: 300px;
+  background: #eee;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.stat-bar-inner {
+  height: 30px;
+  float: left;
+}
+.occupied { background: #e74c3c; }
+.unoccupied { background: #2ecc71; }
+</style>
+<div>
+  <h4>Parking Spot Usage:</h4>
+  <div class="stat-bar">
+    <div class="stat-bar-inner occupied" style="width: {{ (occupied_spots / total_spots * 100) if total_spots else 0 }}%;">
+      &nbsp;
+    </div>
+    <div class="stat-bar-inner unoccupied" style="width: {{ (unoccupied_spots / total_spots * 100) if total_spots else 0 }}%;">
+      &nbsp;
+    </div>
+  </div>
+  <div>
+    <span style="color:#e74c3c;">Occupied: {{ occupied_spots }}</span> /
+    <span style="color:#2ecc71;">Unoccupied: {{ unoccupied_spots }}</span>
+    (Total: {{ total_spots }})
+  </div>
+</div>
+
+<div>
+  <h4>All Bookings:</h4>
+  <ul>
+    {% for booking in bookings %}
+      <li>
+        User ID: {{ booking.user_id }},
+        Spot ID: {{ booking.spot_id }},
+        Parking Time: {{ booking.parking_time }}
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Available Parking Lots</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Lot Name</th>
+            <th>Address</th>
+            <th>Price</th>
+            <th>Available Spots</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for lot in lots %}
+        <tr>
+            <td>{{ lot.name }}</td>
+            <td>{{ lot.address }}</td>
+            <td>{{ lot.price }}</td>
+            <td>
+                {{ lot.total_spots - lot.spots|selectattr('status', 'equalto', 'O')|list|length }}
+            </td>
+            <td>
+                {% set booked_in_lot = false %}
+                {% for b in user_bookings %}
+                    {% if b.spot.lot_id == lot.id %}
+                        {% set booked_in_lot = true %}
+                        <form method="POST" action="{{ url_for('release', user_id=user.id, booking_id=b.id) }}">
+                            <button class="btn btn-sm btn-danger" type="submit">Release Spot</button>
+                        </form>
+                    {% endif %}
+                {% endfor %}
+                {% if not booked_in_lot %}
+                    <form method="POST" action="{{ url_for('book_lot', lot_id=lot.id) }}">
+                        <input type="number" name="num_spots" min="1" max="{{ lot.total_spots - lot.spots|selectattr('status', 'equalto', 'O')|list|length }}" value="1" required>
+                        <button class="btn btn-sm btn-primary" type="submit">Book Spots</button>
+                    </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
